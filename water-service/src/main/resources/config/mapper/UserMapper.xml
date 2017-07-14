@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.df.water.service.dao.UserDao">
+    <!--<resultMap id="userResultMap" type="User">-->
+        <!--<id column="id" javaType="java.lang.Long" jdbcType="BIGINT" property="id" />-->
+        <!--<result column="name" javaType="java.lang.String" jdbcType="VARCHAR" property="name" />-->
+        <!--<result column="nickname" javaType="java.lang.String" jdbcType="VARCHAR" property="nickname" />-->
+        <!--<result column="sex" javaType="java.lang.String" jdbcType="VARCHAR" property="sex" />-->
+        <!--<result column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" property="createTime" />-->
+        <!--<result column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" property="updateTime" />-->
+        <!--<result column="is_deleted" javaType="java.lang.Boolean" jdbcType="BIT" property="isDeleted" />-->
+    <!--</resultMap>-->
+
+    <!--&lt;!&ndash; sql复用片段 &ndash;&gt;-->
+    <!--<sql id="insertSql">-->
+        <!--name, nickname, sex, create_time, update_time, is_deleted-->
+    <!--</sql>-->
+
+    <!--<sql id="updateSql">-->
+        <!--id, name, nickname, sex, create_time, update_time, is_deleted-->
+    <!--</sql>-->
+
+    <!--<sql id="searchSql">-->
+        <!--id, name, nickname, sex, create_time, update_time, is_deleted-->
+    <!--</sql>-->
+
+
+    <!--&lt;!&ndash; 新增用户信息 &ndash;&gt;-->
+    <!--<insert id="insert" parameterType="User">-->
+        <!--<selectKey>-->
+                <!--select last_insert_id();-->
+        <!--</selectKey>-->
+        <!--inset into user (-->
+                <!--<include refid="insertSql" />-->
+        <!--) values (-->
+                <!--#{name, jdbcType=VARCHAR}, #{nickname, jdbcType=VARCHAR}, #{sex, jdbcType=VARCHAR},-->
+                <!--#{createTime, jdbcType=TIMESTAMP}, #{updateTime, jdbcType=TIMESTAMP}, #{isDeleted, jdbcType=BIT}-->
+        <!--)-->
+    <!--</insert>-->
+
+    <!--&lt;!&ndash; 删除用户记录 &ndash;&gt;-->
+    <!--<delete id="deleteById" parameterType="long">-->
+        <!--update-->
+                <!--user-->
+        <!--set-->
+                <!--is_deleted = #{isDeleted, jdbcType=BIT}-->
+        <!--where-->
+                <!--id = #{id, jdbcType=BIGINT}-->
+    <!--</delete>-->
+
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:autoconf="http://github.com/super-diamond/autoconf"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			  http://www.springframework.org/schema/beans/spring-beans.xsd
+			  http://github.com/super-diamond/autoconf
+			  http://github.com/super-diamond/autoconf/autoconfig.xsd
+			  http://www.springframework.org/schema/context
+			  http://www.springframework.org/schema/context/spring-context.xsd
+			  http://www.springframework.org/schema/aop
+			  http://www.springframework.org/schema/aop/spring-aop.xsd"
+              default-autowire="byName">
+
+    <!-- 由于配置文件可能在不同目录, 因此在使用spring容器集成其它框架时建议使用绝对路径 -->
+    <import resource="classpath:config/spring/dubbo-provider.xml" />
+    <import resource="classpath:config/spring/spring-mybatis.xml" />
+
+    <!-- 开启动态代理 -->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <!-- 配置要扫描的包  注意: 如果有必要可以指定多个扫描基包, 而不是扩大扫描范围 -->
+    <context:component-scan base-package="com.df.water.service.impl" />
+    <!-- 开启注解功能 -->
+    <context:annotation-config />
+    <!-- 属性占位符 -->
+    <!--<context:property-placeholder location="classpath:dev/water_jdbc.properties, classpath:dev/water_dubbo.properties" />-->
+
+    <!-- 每2分钟吃从远程配置中心获取一次配置文件,　fetchTime默认15000, confFileName默认autoconf.properties -->
+    <autoconf:properties fetchTime="120" confFileName="@conf-prefix@-autoconf.properties" />
+
+</beans>

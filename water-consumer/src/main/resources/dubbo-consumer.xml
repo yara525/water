@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 配置当前应用基本信息, 用于spring bean依赖 -->
+    <dubbo:application name="water-consumer" />
+
+    <!-- dubbo注册中心, 选择zookeeper来实现分布式服务治理, 服务协调调度 -->
+    <dubbo:registry id="zookeeper" protocol="zookeeper" address="127.0.0.1:2181" timeout="20000" />
+
+    <!-- consumer端的dubbo:protocol默认同步provider端的dubbo:protocol, 消费端可以不再冗余配置(可以为rest,dubbo) -->
+    <!-- consumer端的dubbo:monitor暂时不配置, 后期用dubbo-admin做服务监控 -->
+
+    <!-- 引用provider所暴露的服务, 建议指定服务协议 -->
+    <dubbo:reference id="userServiceImpl" interface="com.df.water.facade.service.UserService" protocol="dubbo" timeout="20000" />
+    <dubbo:reference id="bannerServiceImpl" interface="com.df.water.facade.service.BannerService" protocol="dubbo" timeout="20000" />
+    <dubbo:reference id="cardServiceImpl" interface="com.df.water.facade.service.CardService" protocol="dubbo" timeout="20000" />
+    <dubbo:reference id="aboutServiceImpl" interface="com.df.water.facade.service.AboutService" protocol="dubbo" timeout="20000" />
+    <dubbo:reference id="contractServiceImpl" interface="com.df.water.facade.service.ContractService" protocol="dubbo" timeout="20000" />
+    <dubbo:reference id="repairServiceImpl" interface="com.df.water.facade.service.RepairService" protocol="dubbo" timeout="20000" />
+    <dubbo:reference id="complaintServiceImpl" interface="com.df.water.facade.service.ComplaintService" protocol="dubbo" timeout="20000" />
+    <dubbo:reference id="airConditionerServiceImpl" interface="com.df.water.facade.service.AirConditionerService" protocol="dubbo" timeout="20000" />
+    <dubbo:reference id="collegeServiceImpl" interface="com.df.water.facade.service.CollegeService" protocol="dubbo" timeout="20000" />
+    <dubbo:reference id="walletServiceImpl" interface="com.df.water.facade.service.WalletService" protocol="dubbo" timeout="20000" />
+
+</beans>

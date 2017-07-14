@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 全局别名配置 -->
+    <typeAliases>
+        <typeAlias type="com.df.water.facade.domain.About" alias="About" />
+        <typeAlias type="com.df.water.facade.domain.AirConditioner" alias="AirConditioner" />
+        <typeAlias type="com.df.water.facade.domain.Banner" alias="Banner" />
+        <typeAlias type="com.df.water.facade.domain.Card" alias="Card" />
+        <typeAlias type="com.df.water.facade.domain.College" alias="College" />
+        <typeAlias type="com.df.water.facade.domain.Complaint" alias="Complaint" />
+        <typeAlias type="com.df.water.facade.domain.Contract" alias="Contract" />
+        <typeAlias type="com.df.water.facade.domain.Repair" alias="Repair" />
+        <typeAlias type="com.df.water.facade.domain.User" alias="User" />
+        <typeAlias type="com.df.water.facade.domain.Wallet" alias="Wallet" />
+
+        <!-- 不推荐使用package, 如果使用package请写在最后 -->
+        <!-- 例如: <package name="com.df.water.domain" -->
+
+    </typeAliases>
+
+    <!-- 三方插件配置 -->
+    <plugins>
+        <!-- pageHelper通过拦截方式实现物理分页 -->
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <!-- 4.0.0以后版本可以不设置该参数 -->
+            <property name="dialect" value="mysql"/>
+            <!--将RowBounds第一个参数offset当成pageNum页码使用 -->
+            <property name="offsetAsPageNum" value="true"/>
+            <!-- 使用RowBounds分页会进行count查询 -->
+            <property name="rowBoundsWithCount" value="true"/>
+            <!-- 如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 -->
+            <property name="pageSizeZero" value="true"/>
+            <!-- 如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页（false返回空）；-->
+            <property name="reasonable" value="true"/>
+            <!-- 支持通过Mapper接口参数来传递分页参数 -->
+            <property name="supportMethodsArguments" value="true"/>
+            <!-- always总是返回PageInfo类型,check检查返回类型是否为PageInfo,none返回Page -->
+            <property name="returnPageInfo" value="check"/>
+        </plugin>
+    </plugins>
+
+</configuration>

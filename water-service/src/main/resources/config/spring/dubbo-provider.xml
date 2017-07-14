@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 配置当前应用基本信息, 用于spring bean依赖 -->
+    <dubbo:application name="water-provider" owner="df-admin" organization="df-water" />
+
+    <!-- provider端使用dubbo协议, 指定暴露服务端口号（端口号作用: 绑定进程, 将运输层数据报正确交付给应用层进程) -->
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.service.port}"/>
+
+    <!-- provider端的dubbo:monitor暂时不配置, 后期用dubbo-admin做服务监控 -->
+
+    <!-- dubbo注册中心服务地址, 选择zookeeper来实现分布式服务治理, 服务协调调度 -->
+    <dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" timeout="20000" />
+
+    <!-- 引用dubbo服务 -->
+    <dubbo:service interface="com.df.water.facade.service.UserService" ref="userServiceImpl" timeout="25000" />
+    <dubbo:service interface="com.df.water.facade.service.BannerService" ref="bannerServiceImpl" timeout="25000" />
+    <dubbo:service interface="com.df.water.facade.service.CardService" ref="cardServiceImpl" timeout="25000" />
+    <dubbo:service interface="com.df.water.facade.service.AboutService" ref="aboutServiceImpl" timeout="25000" />
+    <dubbo:service interface="com.df.water.facade.service.ContractService" ref="contractServiceImpl" timeout="25000" />
+    <dubbo:service interface="com.df.water.facade.service.CollegeService" ref="collegeServiceImpl" timeout="25000" />
+    <dubbo:service interface="com.df.water.facade.service.ComplaintService" ref="complaintServiceImpl" timeout="25000" />
+    <dubbo:service interface="com.df.water.facade.service.RepairService" ref="repairServiceImpl" timeout="25000" />
+    <dubbo:service interface="com.df.water.facade.service.AirConditionerService" ref="airConditionerServiceImpl" timeout="25000" />
+    <dubbo:service interface="com.df.water.facade.service.WalletService" ref="walletServiceImpl" timeout="25000" />
+
+</beans>

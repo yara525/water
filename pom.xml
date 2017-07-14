@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.df.water</groupId>
+    <artifactId>water-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>water-parent</name>
+    <description>Water parent project of Jolan Energy-Saving Technology</description>
+    <developers>
+        <developer>
+            <name>Daniel Lee</name>
+            <email>limiaofei@difengshanguo.com</email>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>water-common</module>
+        <module>water-config</module>
+        <module>water-consumer</module>
+        <module>water-facade</module>
+        <module>water-service</module>
+    </modules>
+
+    <properties>
+        <!-- 常用包依赖版本属性管理(不包含安全管理) -->
+        <org.springframework-common.version>4.1.1.RELEASE</org.springframework-common.version>
+        <org.springframework.ampq-common.version>1.7.3.RELEASE</org.springframework.ampq-common.version>
+        <org.springframework.data-common.version>1.13.4.RELEASE</org.springframework.data-common.version>
+        <org.springframework.data-rest.version>2.5.3.RELEASE</org.springframework.data-rest.version>
+        <org.springframework.data-mangodb.version>1.10.4.RELEASE</org.springframework.data-mangodb.version>
+        <org.springframework.spring-boot-common.version>1.5.3.RELEASE</org.springframework.spring-boot-common.version>
+        <io.springfox.swagger.version>2.7.0</io.springfox.swagger.version>
+        <org.apache.slf4j.version>1.7.25</org.apache.slf4j.version>
+        <com.alibaba.aliyun-oss-sdk.version>2.1.2</com.alibaba.aliyun-oss-sdk.version>
+
+        <!-- 私服sdk版本属性管理 -->
+        <com.alibaba.dubbo.version>2.8.4</com.alibaba.dubbo.version>
+        <com.llq.login-center-client.version>0.0.1-SNAPSHOT</com.llq.login-center-client.version>
+        <com.llq.commons.common-datasource.version>1.5-SNAPSHOT</com.llq.commons.common-datasource.version>
+
+        <!-- 插件版本属性管理 -->
+        <org.apache.maven-compiler-plugin.version>3.6.1</org.apache.maven-compiler-plugin.version>
+        <org.apache.maven-resources-plugin.version>3.0.2</org.apache.maven-resources-plugin.version>
+        <org.apache.maven-source-plugin.version>3.0.1</org.apache.maven-source-plugin.version>
+        <org.apache.maven-eclipse-plugin.version>2.10</org.apache.maven-eclipse-plugin.version>
+        <org.apache.maven-idea-plugin.version>2.2.1</org.apache.maven-idea-plugin.version>
+        <org.apache.maven-deploy-plugin.version>2.8.2</org.apache.maven-deploy-plugin.version>
+        <org.apache.maven-surefire-plugin.version>2.19.1</org.apache.maven-surefire-plugin.version>
+        <org.apache.maven-jar-plugin.version>3.0.0</org.apache.maven-jar-plugin.version>
+
+        <!-- 插件属性管理 -->
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- aliyun oss sdk -->
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${com.alibaba.aliyun-oss-sdk.version}</version>
+            </dependency>
+            <!-- the login center of group business -->
+            <dependency>
+                <groupId>com.llq.login</groupId>
+                <artifactId>login.client</artifactId>
+                <version>${com.llq.login-center-client.version}</version>
+            </dependency>
+            <!-- the datasource of group business -->
+            <dependency>
+                <groupId>com.llq.commons</groupId>
+                <artifactId>common-datasource</artifactId>
+                <version>${com.llq.commons.common-datasource.version}</version>
+            </dependency>
+            <!-- dubbox(Dangdang), lastest version of Alibaba dubbo is 2.5.3 on GitHub -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${com.alibaba.dubbo.version}</version>
+            </dependency>
+            <!-- zookeeper, service governance -->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>3.4.10</version>
+            </dependency>
+            <!-- zookeeper, java client -->
+            <dependency>
+                <groupId>com.github.sgroschupf</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>0.1</version>
+            </dependency>
+
+            <!-- === spring fundamental framework dependency management === -->
+            <!-- core container: spring bean + bean container + expression language, etc -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <!-- supporting aspect-oriented programming, with auto-proxy technology -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <!-- dealing with bytecode -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-instrument</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-instrument-tomcat</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <!-- mapping framework of persistence layer  -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-oxm</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <!-- supporting mvc pattern for jaction web framework -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc-portlet</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <!-- duplex communication cooperating with html 5 -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-websocket</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <!-- support database connectivity and transaction management -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <!-- support java-based messaging communication mechanism -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jms</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-messaging</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+            <!-- spring unit test framework -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${org.springframework-common.version}</version>
+            </dependency>
+
+            <!-- == spring framework for message-oriented middleware == -->
+            <dependency>
+                <groupId>org.springframework.amqp</groupId>
+                <artifactId>spring-rabbit</artifactId>
+                <version>${org.springframework.ampq-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.amqp</groupId>
+                <artifactId>spring-amqp</artifactId>
+                <version>${org.springframework.ampq-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.amqp</groupId>
+                <artifactId>spring-erlang</artifactId>
+                <version>1.4.6.RELEASE</version>
+            </dependency>
+
+
+            <!--　spring data framework：mangodb, redis, jpa -->
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-commons</artifactId>
+                <version>${org.springframework.data-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-rest-core</artifactId>
+                <version>${org.springframework.data-rest.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-rest-webmvc</artifactId>
+                <version>${org.springframework.data-rest.version}</version>
+            </dependency>
+            <!--　mangodb -->
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-mongodb</artifactId>
+                <version>${org.springframework.data-mangodb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mongodb</groupId>
+                <artifactId>mongo-java-driver</artifactId>
+                <version>2.13.0-rc0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-mongodb-cross-store</artifactId>
+                <version>1.5.2.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-mongodb-log4j</artifactId>
+                <version>1.5.2.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>1.8.4.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-jpa</artifactId>
+                <version>1.11.4.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-neo4j</artifactId>
+                <version>4.2.4.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-solr</artifactId>
+                <version>2.1.4.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-elasticsearch</artifactId>
+                <version>2.1.4.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-keyvalue</artifactId>
+                <version>1.2.4.RELEASE</version>
+            </dependency>
+
+            <!-- == spring boot dependency management (essential point) == -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${org.springframework.spring-boot-common.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starters</artifactId>
+                <version>${org.springframework.spring-boot-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${org.springframework.spring-boot-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${org.springframework.spring-boot-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${org.springframework.spring-boot-common.version}</version>
+            </dependency>
+
+
+
+            <!-- mybatis with spring + mybatis pagination helper -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.2.8</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>1.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>3.6.0</version>
+            </dependency>
+
+            <!-- mysql database connectivity for java -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.32</version>
+            </dependency>
+            <!-- alibaba druid data source -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.0.12</version>
+            </dependency>
+
+            <!-- swagger, born for spring cloud -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-common</artifactId>
+                <version>${io.springfox.swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${io.springfox.swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${io.springfox.swagger.version}</version>
+            </dependency>
+
+            <!-- == apache & google utilities == -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-math3</artifactId>
+                <version>3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-email</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.3.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>19.0</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.8.0</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.8</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.3.1</version>
+            </dependency>
+
+            <!-- == common logging framework == -->
+            <!-- 日志门面 -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.17</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${org.apache.slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${org.apache.slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${org.apache.slf4j.version}</version>
+            </dependency>
+
+
+            <!-- validator toolkit -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>5.0.2.Final</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <finalName>water</finalName>
+        <pluginManagement>
+            <plugins>
+                <!-- 由于spring-boot-dependencies只作用于包依赖, 因此插件依赖的版本必须单独控制 -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${org.springframework.spring-boot-common.version}</version>
+                </plugin>
+
+                <!-- 编译插件, maven2默认用jdk1.3编译, maven3默认用jdk1.5编译 maven3的source和target可能版本会不同, 因此统一jdk版本 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${org.apache.maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <failOnError>true</failOnError>
+                        <verbose>true</verbose>
+                        <!-- spring 3.1后建议用compilerArgs代替compilerArguments -->
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${org.apache.maven-resources-plugin.version}</version>
+                </plugin>
+                <!-- The Maven Source Plugin creates a JAR archive of the source files of the current project -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${org.apache.maven-source-plugin.version}</version>
+                </plugin>
+                <!-- The Eclipse Plugin is used to generate Eclipse IDE files (.project, .classpath and the .settings folder) from a POM -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <version>${org.apache.maven-eclipse-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${org.apache.maven-surefire-plugin.version}</version>
+                </plugin>
+                <!-- Uploads the project artifacts to the internal remote repository -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${org.apache.maven-deploy-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${org.apache.maven-jar-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <!-- 分环境配置 -->
+    <profiles>
+
+        <profile>
+            <id>dev</id>
+            <properties>
+                <conf-prefix>dev</conf-prefix>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <jdk>1.8</jdk>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>test</id>
+            <properties>
+                <conf-prefix>test</conf-prefix>
+            </properties>
+            <!--
+                激活配置不能加多, 否则传入参数激活可能会有多个, 不利于分环境配置
+                <activation></activation>
+            -->
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <conf-prefix>prod</conf-prefix>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>
